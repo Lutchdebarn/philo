@@ -21,8 +21,8 @@ typedef enum	s_states
 
 typedef struct	s_data
 {
-	int		nb_philo;
-	int		max_eat;
+	long		nb_philo;
+	long		max_eat;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	is_talking;
 	size_t	time_to_die;
@@ -37,9 +37,15 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	size_t		last_meal;
+	long		meals_counter;
 	size_t		time;
 	t_states	state;
 	t_data		*data;
 }				t_philo;
+
+void	error_args(void);
+bool	setup_data(t_data *data, char **av, int ac);
+long	ft_atol(const char *str);
+bool	check_str(const char *str);
 
 #endif
