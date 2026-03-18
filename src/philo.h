@@ -47,5 +47,6 @@ void	error_args(void);
 bool	setup_data(t_data *data, char **av, int ac);
 long	ft_atol(const char *str);
 bool	check_str(const char *str);
+void	*safe_malloc(size_t bytes);
 
 #endif

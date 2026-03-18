@@ -7,22 +7,31 @@
 # include <limits.h>
 # include <pthread.h>
 
-pthread_mutex_t *init_table_forks(int nb_philo)
+# define NC "\e[0m"
+# define YELLOW "\e[1;33m"
+
+void	*thread_routine(void *data)
 {
-	pthread_mutex_t	*fork;
-	int i = 0;
-	fork = malloc(sizeof(pthread_mutex_t) * nb_philo);
-	if (!fork)
-		return (NULL);
-	while (i < nb_philo)
-	{
-		pthread_mutex_init(&fork[i], NULL);
-		i++;
-	}
-	return(fork);
+	pthread_t tid;
+
+	tid = pthread_self();
+
+	printf("%sThread [%ld]: le plus grand ennui c'est d'exister sans vitre.%s\n", YELLOW, tid, NC);
+	return (NULL);
 }
 
 int main(void)
 {
-	int nb_philo = 5;
+	pthread_t tid1;
+	pthread_t tid2;
+
+	pthread_create(&tid1, NULL, thread_routine, NULL);
+	printf("Main: Creation du premier thread [%ld]\n", tid1);
+	pthread_create(&tid2, NULL, thread_routine, NULL);
+	printf("Main: Creation du second thread [%ld]\n", tid2);
+	pthread_join(tid1, NULL);
+	printf("Main: Union du premier thread [%ld]\n", tid1);
+	pthread_join(tid2, NULL);
+	printf("Main: Union du second thread [%ld]\n", tid2);
+	return (0);
 }

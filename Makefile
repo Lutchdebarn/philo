@@ -6,7 +6,7 @@ MAKEFLAGS += --no-print-directory
 OBJ_DIR = object
 
 # Chemins complets vers les fichiers source
-SRC_FILES = src/philo.c
+SRC_FILES = src/philo.c \
 			src/philo_utils.c
 
 # Chemins vers les fichiers objets correspondants
@@ -14,7 +14,7 @@ OBJS = $(patsubst $(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Configurations de bases
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -pthread
 
 # Chemins d'inclusion communs
 INCLUDES = -I
