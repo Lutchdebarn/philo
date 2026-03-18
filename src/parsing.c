@@ -1,6 +1,5 @@
 #include "philo.h"
 
-
 // 1) Check  > INT_MAX
 // 2) is number
 // 3) timestamps > 60ms
@@ -21,6 +20,7 @@ bool	check_str(const char *str)
 		return (false);
 	return (true);
 }
+
 bool	setup_data(t_data *data, char **av, int ac)
 {
 	int i;
@@ -32,6 +32,7 @@ bool	setup_data(t_data *data, char **av, int ac)
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!fork)
 		return (NULL);
+	init_mutex(data);
 	data->time_to_die = ft_atol(av[2]);
 	if (data->time_to_die < 0 || data->time_to_die > INT_MAX)
 		return (false);
@@ -49,15 +50,18 @@ bool	setup_data(t_data *data, char **av, int ac)
 	}
 	return (true);
 }
+
 void	safe_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < data->nb_philo)
+	while (i < (data->nb_philo - 1))
 	{
-		pthread_mutex_init(&data->fork[i], NULL);
-		i++;
+		if (pthread_mutex_init(&data->fork[i], NULL) == 0)
+			i++;
+		else
+			ft_error("initialization Mutex failed\n");
 	}
 }
 void	setup_philo(t_philo **philo, t_data *data)
@@ -72,6 +76,5 @@ void	setup_philo(t_philo **philo, t_data *data)
 		philo[i]->id_philo = i + 1;
 		philo[i]->fork_left = &data->fork[i + 1];
 		philo[i]->fork_right = &data->fork[(i + 1) % data->nb_philo];
-		philo[i]->last_meal = 
 	}
 }

@@ -44,6 +44,7 @@ typedef struct s_philo
 }				t_philo;
 
 void	error_args(void);
+void	ft_error(char *errorname);
 bool	setup_data(t_data *data, char **av, int ac);
 long	ft_atol(const char *str);
 bool	check_str(const char *str);

@@ -41,3 +41,9 @@ void	*safe_malloc(size_t bytes)
 	}
 	return (ret);
 }
+
+void	ft_error(char *errorname)
+{
+	printf("%s\n", errorname);
+	exit(EXIT_FAILURE);
+}
