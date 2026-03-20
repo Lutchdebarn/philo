@@ -54,13 +54,19 @@ typedef struct s_philo
 	t_data		*data;
 }				t_philo;
 
-void	start_routine(void *data);
+// Routine fonctions
 void	creat_thread(t_data *data);
+void	print_states(t_philo *philo);
+
+// Utils
 void	error_args(void);
 void	ft_error(char *errorname);
-bool	setup_data(t_data *data, char **av, int ac);
 long	ft_atol(const char *str);
 bool	check_str(const char *str);
 void	*safe_calloc(size_t count, size_t size);
+
+// Setup
+bool	setup_data(t_data *data, char **av, int ac);
+void	setup_philo(t_data *data);
 
 #endif

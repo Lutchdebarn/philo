@@ -1,53 +1,66 @@
 #include "philo.h"
+static void	init_mutex(t_data *data);
 
-long	ft_atol(const char *str)
+bool	setup_data(t_data *data, char **av, int ac)
 {
-	long	nb;
-	int		sign;
-	int		i;
-
-	nb = 0;
-	sign = 1;
-	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-		if (str[i++] == '-')
-			sign = -1;
-	if (!check_str(str))
-		return (-1);
-	while (str[i] >= '0' && str[i] <= '9')
-		nb = nb * 10 + (str[i++] - '0');
-	return (nb * sign);
-}
-
-void	error_args(void)
-{
-	printf("Error usage type :\n\t\t <number_of_philosophers time_to_die");
-	printf(" time_to_eat time_to_sleep [number_of_times_each_philosopher");
-	printf("_must_eat]>\n");
-	exit (EXIT_FAILURE);
-}
-
-
-void	ft_error(char *errorname)
-{
-	printf("%s\n", errorname);
-	exit(EXIT_FAILURE);
-}
-
-void	*safe_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (size != 0 && count > SIZE_MAX / size)
-		return (NULL);
-	ptr = malloc(size * count);
-	if (!ptr)
+	data->nb_philo = ft_atol(av[1]);
+	if (data->nb_philo < 0 || data->nb_philo > INT_MAX)
+		return (false);
+	data->fork = safe_calloc(data->nb_philo, sizeof(pthread_mutex_t));
+	init_mutex(data);
+	data->time_to_die = ft_atol(av[2]);
+	if (data->time_to_die > INT_MAX)
+		return (false);
+	data->time_to_eat = ft_atol(av[3]);
+	if (data->time_to_eat > INT_MAX)
+		return (false);
+	data->time_to_sleep = ft_atol(av[4]);
+	if (data->time_to_sleep >INT_MAX)
+		return (false);
+	if (ac == 6)
 	{
-		write(2, "Error with malloc\n", 19);
-		exit(EXIT_FAILURE);
+		data->max_eat = ft_atol(av[5]);
+		if (data->max_eat < 0 || data->max_eat > INT_MAX)
+			return (false);
 	}
-	memset(ptr, 0, size * count);
-	return (ptr);
+	return (true);
+}
+
+void	setup_philo(t_data *data)
+{
+	int	i;
+	struct timeval	actual_time;
+
+	memset(&actual_time, 0, sizeof(struct timeval));
+	gettimeofday(&actual_time, NULL);
+	i = 0;
+	data->philos = safe_calloc(data->nb_philo, sizeof(t_philo));
+	while(i < data->nb_philo)
+	{
+		data->philos[i].data = data;
+		data->philos[i].id_philo = i + 1;
+		data->philos[i].fork_right = &data->fork[i];
+		data->philos[i].fork_left = &data->fork[(i + 1) % data->nb_philo];
+		data->philos[i].last_meal = (actual_time.tv_sec * 1000) + (actual_time.tv_usec / 1000);
+		i++;
+	}
+	memset(&actual_time, 0, sizeof(struct timeval));
+}
+
+static void	init_mutex(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (pthread_mutex_init(&data->is_talking, NULL) != 0 )
+		ft_error("initialization Mutex failed\n");
+	if (pthread_mutex_init(&data->simul, NULL) != 0)
+		ft_error("initialization Mutex failed\n");
+	while (i < (data->nb_philo))
+	{
+		if (pthread_mutex_init(&data->fork[i], NULL) == 0)
+			i++;
+		else
+			ft_error("initialization Mutex failed\n");
+	}
 }
