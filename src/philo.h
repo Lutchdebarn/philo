@@ -11,8 +11,14 @@
 # include <limits.h>
 # include <pthread.h>
 
+# define YELLOW "\e[1;33m"
+
+typedef struct s_data t_data;
+typedef struct s_philo t_philo;
+
 typedef enum	s_states
 {
+	IS_TAKING_FORK,
 	IS_EATING,
 	IS_SLEEPING,
 	IS_THINKING,
@@ -23,11 +29,15 @@ typedef struct	s_data
 {
 	long		nb_philo;
 	long		max_eat;
+	bool		is_running;
+	pthread_t	monitor;
+	pthread_mutex_t	simul;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	is_talking;
 	size_t	time_to_die;
 	size_t	time_to_eat;
 	size_t	time_to_sleep;
+	t_philo			*philos;
 }			t_data;
 
 typedef struct s_philo
@@ -36,6 +46,7 @@ typedef struct s_philo
 	pthread_t	ID;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
+	pthread_mutex_t	protect_meal;
 	size_t		last_meal;
 	long		meals_counter;
 	size_t		time;
@@ -43,11 +54,13 @@ typedef struct s_philo
 	t_data		*data;
 }				t_philo;
 
+void	start_routine(void *data);
+void	creat_thread(t_data *data);
 void	error_args(void);
 void	ft_error(char *errorname);
 bool	setup_data(t_data *data, char **av, int ac);
 long	ft_atol(const char *str);
 bool	check_str(const char *str);
-void	*safe_malloc(size_t bytes);
+void	*safe_calloc(size_t count, size_t size);
 
 #endif

@@ -1,37 +1,47 @@
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdbool.h>
-# include <pthread.h>
-# include <sys/time.h>
-# include <limits.h>
-# include <pthread.h>
+#include <limits.h>
+#include <pthread.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
 
-# define NC "\e[0m"
-# define YELLOW "\e[1;33m"
+#define NC "\e[0m"
+#define YELLOW "\e[1;33m"
+
+long	g_counter = 0;
 
 void	*thread_routine(void *data)
 {
-	pthread_t tid;
+	pthread_mutex_t	*mutex;
 
-	tid = pthread_self();
-
-	printf("%sThread [%ld]: le plus grand ennui c'est d'exister sans vitre.%s\n", YELLOW, tid, NC);
+	mutex = data;
+	while (1)
+	{
+		pthread_mutex_lock(mutex);
+		if (g_counter >= 1000)
+		{
+			pthread_mutex_unlock(mutex);
+			break ;
+		}
+		g_counter++;
+		pthread_mutex_unlock(mutex);
+	}
 	return (NULL);
 }
 
-int main(void)
+int	main(void)
 {
-	pthread_t tid1;
-	pthread_t tid2;
+	pthread_t		tid1;
+	pthread_t		tid2;
+	pthread_mutex_t	mutex;
 
-	pthread_create(&tid1, NULL, thread_routine, NULL);
-	printf("Main: Creation du premier thread [%ld]\n", tid1);
-	pthread_create(&tid2, NULL, thread_routine, NULL);
-	printf("Main: Creation du second thread [%ld]\n", tid2);
+	pthread_mutex_init(&mutex, NULL);
+	pthread_create(&tid1, NULL, thread_routine, &mutex);
+	pthread_create(&tid2, NULL, thread_routine, &mutex);
 	pthread_join(tid1, NULL);
-	printf("Main: Union du premier thread [%ld]\n", tid1);
 	pthread_join(tid2, NULL);
-	printf("Main: Union du second thread [%ld]\n", tid2);
+	printf("g_counter = [%ld]\n", YELLOW, g_counter);
+	pthread_mutex_destroy(&mutex);
 	return (0);
 }
