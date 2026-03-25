@@ -6,10 +6,10 @@
 
 bool	check_str(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
 			i++;
@@ -47,9 +47,8 @@ void	error_args(void)
 	printf("Error usage type :\n\t\t <number_of_philosophers time_to_die");
 	printf(" time_to_eat time_to_sleep [number_of_times_each_philosopher");
 	printf("_must_eat]>\n");
-	exit (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
-
 
 void	ft_error(char *errorname)
 {

@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:03:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/20 16:05:47 by ludebarn         ###   ########.fr       */
+/*   Updated: 2026/03/23 11:58:44 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// (i + 1) % nb_philo = nb_philo % nb_philo = 0;  formule pour ne pas faire de depassement de memoire des fourchettes
+// (i + 1) % nb_philo = nb_philo
+	% nb_philo = 0;  formule pour ne pas faire de depassement de memoire des fourchettes
 // ./philo 5 800 200 200 [5]
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_data		data;
+	t_data	data;
 
 	memset(&data, 0, sizeof(t_data));
 	if (ac == 5 || ac == 6)
