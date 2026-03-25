@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/03/25 19:56:18 by lucasdebarn       #+#    #+#              #
+#    Updated: 2026/03/25 20:07:33 by lucasdebarn      ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo
 
 MAKEFLAGS += --no-print-directory
@@ -8,10 +20,12 @@ SRC_DIR = src
 INC_DIR = includes
 
 # Chemins complets vers les fichiers source
-SRC_FILES = $(SRC_DIR)/philo_utils.c \
+SRC_FILES = $(SRC_DIR)/setup_data.c \
 			$(SRC_DIR)/main.c \
 			$(SRC_DIR)/parsing.c \
 			$(SRC_DIR)/routine.c \
+			$(SRC_DIR)/routine_utils.c \
+			$(SRC_DIR)/clean_up.c
 
 # Chemins vers les fichiers objets correspondants
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))

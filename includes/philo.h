@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 19:56:23 by lucasdebarn       #+#    #+#             */
+/*   Updated: 2026/03/25 20:06:28 by lucasdebarn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -61,6 +73,9 @@ typedef struct s_philo
 void					creat_thread(t_data *data);
 void					print_states(t_philo *philo);
 bool					check_is_running(t_philo *philo);
+bool					is_taking_fork(t_philo *philo);
+bool					unlock_fork(t_philo *philo);
+bool					check_max_meal(t_data *data);
 
 // Utils
 void					error_args(void);
@@ -70,8 +85,9 @@ size_t					get_time(void);
 bool					check_str(const char *str);
 void					*safe_calloc(size_t count, size_t size);
 
-// Setup
+// Setup Cleanup
 bool					setup_data(t_data *data, char **av, int ac);
 void					setup_philo(t_data *data);
+void					clean_up(t_data *data);
 
 #endif

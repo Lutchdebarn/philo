@@ -6,14 +6,14 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:03:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/23 11:58:44 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/25 19:53:30 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // (i + 1) % nb_philo = nb_philo
-	% nb_philo = 0;  formule pour ne pas faire de depassement de memoire des fourchettes
+	// % nb_philo = 0;  formule pour ne pas faire de depassement de memoire des fourchettes
 // ./philo 5 800 200 200 [5]
 
 int	main(int ac, char **av)
@@ -27,6 +27,7 @@ int	main(int ac, char **av)
 		{
 			setup_philo(&data);
 			creat_thread(&data);
+			clean_up(&data);
 		}
 		else
 			error_args();

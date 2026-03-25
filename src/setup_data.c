@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup_data.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 19:56:09 by lucasdebarn       #+#    #+#             */
+/*   Updated: 2026/03/25 19:56:10 by lucasdebarn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static void	init_mutex(t_data *data);
@@ -79,3 +91,4 @@ size_t	get_time(void)
 	current_time += time.tv_usec / 1000;
 	return (current_time);
 }
+
