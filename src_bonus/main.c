@@ -5,30 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 10:03:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 20:15:06 by lucasdebarn      ###   ########.fr       */
+/*   Created: 2026/03/25 20:46:15 by lucasdebarn       #+#    #+#             */
+/*   Updated: 2026/03/25 22:02:07 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
 	t_data	data;
+	t_philo	philo;
 
+	memset(&philo, 0, sizeof(t_philo));
 	memset(&data, 0, sizeof(t_data));
 	if (ac == 5 || ac == 6)
 	{
 		if (setup_data(&data, av, ac))
 		{
-			setup_philo(&data);
-			creat_thread(&data);
-			clean_up(&data);
+			init_process(&data, &philo);
 		}
 		else
 			error_args();
 	}
 	else
 		error_args();
-	return (0);
 }

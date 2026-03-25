@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:56:12 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 19:56:13 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/25 20:16:36 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,3 @@ bool	check_max_meal(t_data *data)
 	}
 	return (false);
 }
-

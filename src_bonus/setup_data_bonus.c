@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_data.c                                       :+:      :+:    :+:   */
+/*   setup_data_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 19:56:09 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 22:06:13 by lucasdebarn      ###   ########.fr       */
+/*   Created: 2026/03/25 20:51:57 by lucasdebarn       #+#    #+#             */
+/*   Updated: 2026/03/25 22:09:13 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-static void	init_mutex(t_data *data);
+static void	init_semaphore(t_data *data);
 
 bool	setup_data(t_data *data, char **av, int ac)
 {
+	size_t	actual_time;
+
+	actual_time = get_time();
 	data->nb_philo = ft_atol(av[1]);
 	if (data->nb_philo < 0 || data->nb_philo > INT_MAX)
 		return (false);
+	data->start_time = actual_time;
 	data->time_to_die = ft_atol(av[2]);
 	if (data->time_to_die > INT_MAX)
 		return (false);
@@ -34,50 +38,25 @@ bool	setup_data(t_data *data, char **av, int ac)
 		if (data->max_eat < 0 || data->max_eat > INT_MAX)
 			return (false);
 	}
-	data->fork = safe_calloc(data->nb_philo, sizeof(pthread_mutex_t));
-	init_mutex(data);
+	data->p_id = safe_calloc(data->nb_philo, sizeof(pid_t));
+	init_semaphore(data);
 	return (true);
 }
 
-void	setup_philo(t_data *data)
+static void	init_semaphore(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	data->philos = safe_calloc(data->nb_philo, sizeof(t_philo));
-	while (i < data->nb_philo)
-	{
-		data->philos[i].data = data;
-		data->philos[i].id_philo = i + 1;
-		data->philos[i].fork_right = &data->fork[i];
-		data->philos[i].fork_left = &data->fork[(i + 1) % data->nb_philo];
-		data->philos[i].data->start_time = get_time();
-		data->philos[i].last_meal = data->philos[i].data->start_time;
-		data->philos[i].data->is_running = true;
-		if ((pthread_mutex_init(&data->philos[i].protect_meal, NULL)) != 0)
-			ft_error("pthread_mutex_init() error\n");
-		i++;
-	}
-}
-
-static void	init_mutex(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (pthread_mutex_init(&data->is_talking, NULL) != 0)
-		ft_error("pthread_mutex_init() error\n");
-	if (pthread_mutex_init(&data->simul, NULL) != 0)
-		ft_error("pthread_mutex_init() error\n");
-	if ((pthread_mutex_init(&data->mutex_state, NULL)) != 0)
-		ft_error("pthread_mutex_init() error\n");
-	while (i < (data->nb_philo))
-	{
-		if (pthread_mutex_init(&data->fork[i], NULL) == 0)
-			i++;
-		else
-			ft_error("pthread_mutex_init() error\n");
-	}
+	sem_unlink("/table");
+	data->forks = sem_open("/table", O_CREAT, 0644, data->nb_philo);
+	if (data->forks == SEM_FAILED)
+		ft_error("sem_open() error\n");
+	sem_unlink("/death");
+	data->death = sem_open("/death", O_CREAT, 0644, 0);
+	if (data->death == SEM_FAILED)
+		ft_error("sem_open() error\n");
+	sem_unlink("/printf");
+	data->print = sem_open("/printf", O_CREAT, 0644, 1);
+	if (data->print == SEM_FAILED)
+		ft_error("sem_open() error\n");
 }
 
 size_t	get_time(void)

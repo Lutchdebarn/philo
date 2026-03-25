@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:56:14 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 19:56:15 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/25 20:17:38 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	creat_thread(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_create(&data->philos[i].ID, NULL, start_routine,
+		pthread_create(&data->philos[i].id, NULL, start_routine,
 			&data->philos[i]);
 		i++;
 	}
@@ -31,7 +31,7 @@ void	creat_thread(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_join(data->philos[i].ID, NULL);
+		pthread_join(data->philos[i].id, NULL);
 		i++;
 	}
 	pthread_join(data->monitor, NULL);
@@ -49,7 +49,7 @@ static void	*monitor_routine(void *param)
 	{
 		actual_time = get_time();
 		if (!check_death(data, i, actual_time))
-			break;
+			break ;
 		if (data->max_eat > 0)
 			if (check_max_meal(data))
 				break ;

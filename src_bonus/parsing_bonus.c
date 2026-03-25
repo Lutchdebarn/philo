@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 20:14:49 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 20:14:58 by lucasdebarn      ###   ########.fr       */
+/*   Created: 2026/03/25 20:48:42 by lucasdebarn       #+#    #+#             */
+/*   Updated: 2026/03/25 20:48:49 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 bool	check_str(const char *str)
 {
