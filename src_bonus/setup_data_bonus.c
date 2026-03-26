@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:51:57 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 22:09:13 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/26 09:03:58 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ static void	init_semaphore(t_data *data)
 	data->print = sem_open("/printf", O_CREAT, 0644, 1);
 	if (data->print == SEM_FAILED)
 		ft_error("sem_open() error\n");
+}
+
+void	setup_philo(t_data *data, t_philo *philo)
+{
+	philo->last_meal = data->start_time;
+	philo->data = data;
+	pthread_mutex_init(&philo->mutex_meal, NULL);
+	pthread_mutex_init(&philo->mutex_states, NULL);
 }
 
 size_t	get_time(void)

@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:38:44 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 22:30:00 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/26 10:37:18 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 
 # include <limits.h>
 # include <semaphore.h>
+# include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+
+# define YELLOW "\e[1;33m"
+# define RED "\e[1;31m"
+# define NC "\e[0m"
 
 
 typedef struct s_data	t_data;
@@ -39,6 +46,7 @@ typedef struct s_data
 {
 	long				nb_philo;
 	long				max_eat;
+	pthread_t			thread_main;
 	pid_t				*p_id;
 	size_t				time_to_die;
 	size_t				time_to_eat;
@@ -54,10 +62,13 @@ typedef struct s_philo
 	int					id_philo;
 	size_t				last_meal;
 	long				meals_counter;
+	bool				is_dead;
 	size_t				time;
-	size_t				nbof_fork;
 	pthread_t			thread;
+	pthread_mutex_t		mutex_meal;
+	pthread_mutex_t		mutex_states;
 	t_states			state;
+	t_data				*data;
 }						t_philo;
 
 // Utils
@@ -70,6 +81,7 @@ void					*safe_calloc(size_t count, size_t size);
 
 // Setup Cleanup
 bool					setup_data(t_data *data, char **av, int ac);
+void	setup_philo(t_data *data, t_philo *philo);
 
 
 // Routine

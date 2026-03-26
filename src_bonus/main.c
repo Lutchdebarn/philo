@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:46:15 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 22:02:07 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/26 08:47:58 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int main(int ac, char **av)
 {
+	// Faire README
 	t_data	data;
 	t_philo	philo;
 
@@ -23,6 +24,7 @@ int main(int ac, char **av)
 	{
 		if (setup_data(&data, av, ac))
 		{
+			setup_philo(&data, &philo);
 			init_process(&data, &philo);
 		}
 		else
