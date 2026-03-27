@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 09:21:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/27 09:29:24 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/27 10:44:26 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ static void	is_eating(t_data *data, t_philo *philo)
 	sem_post(data->forks);
 	sem_post(data->forks);
 	if (data->max_eat)
+	{
+		pthread_mutex_lock(&philo->mutex_meal);
 		philo->meals_counter++;
+		pthread_mutex_unlock(&philo->mutex_meal);
+	}
 }
 
 static void	*death_checker(void *param)
@@ -77,7 +81,7 @@ static void	*death_checker(void *param)
 			break ;
 		if ((actual_time - philo->last_meal) > philo->data->time_to_die)
 		{
-			is_dead(philo, actual_time);
+			is_dead_rip(philo, actual_time);
 			break ;
 		}
 		pthread_mutex_unlock(&philo->mutex_meal);

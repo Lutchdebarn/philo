@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 21:50:24 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/27 09:27:55 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/27 10:10:29 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ static void	wait_all(t_data *data)
 	while (i < data->nb_philo)
 	{
 		waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
-			i++;
-		else
-			break ;
+		i++;
 	}
 	sem_post(data->death);
 }

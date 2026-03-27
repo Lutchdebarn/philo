@@ -6,7 +6,7 @@
 #    By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:56:18 by lucasdebarn       #+#    #+#              #
-#    Updated: 2026/03/25 22:43:30 by lucasdebarn      ###   ########.fr        #
+#    Updated: 2026/03/27 09:49:21 by lucasdebarn      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ SRC_FILES = $(SRC_DIR)/setup_data.c \
 SRC_FILE_BONUS = $(SRC_DIR_BONUS)/setup_data_bonus.c \
 			$(SRC_DIR_BONUS)/main.c \
 			$(SRC_DIR_BONUS)/parsing_bonus.c \
-			$(SRC_DIR_BONUS)/routine_bonus.c
+			$(SRC_DIR_BONUS)/routine_bonus.c \
+			$(SRC_DIR_BONUS)/routine_bonus2.c \
+			$(SRC_DIR_BONUS)/utils_bonus.c
 
 # Chemins vers les fichiers objets correspondants
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
