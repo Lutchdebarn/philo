@@ -6,15 +6,14 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:46:15 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/26 08:47:58 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/27 09:44:35 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	// Faire README
 	t_data	data;
 	t_philo	philo;
 
@@ -26,6 +25,7 @@ int main(int ac, char **av)
 		{
 			setup_philo(&data, &philo);
 			init_process(&data, &philo);
+			close_prog(&data, &philo);
 		}
 		else
 			error_args();

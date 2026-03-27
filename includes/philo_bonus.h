@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:38:44 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/26 10:37:18 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/27 09:43:29 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define YELLOW "\e[1;33m"
 # define RED "\e[1;31m"
 # define NC "\e[0m"
-
 
 typedef struct s_data	t_data;
 typedef struct s_philo	t_philo;
@@ -55,6 +54,7 @@ typedef struct s_data
 	sem_t				*print;
 	sem_t				*forks;
 	sem_t				*death;
+	sem_t				*waiter;
 }						t_data;
 
 typedef struct s_philo
@@ -81,10 +81,12 @@ void					*safe_calloc(size_t count, size_t size);
 
 // Setup Cleanup
 bool					setup_data(t_data *data, char **av, int ac);
-void	setup_philo(t_data *data, t_philo *philo);
-
+void					setup_philo(t_data *data, t_philo *philo);
+void					close_prog(t_data *data, t_philo *philo);
 
 // Routine
-void	init_process(t_data *data, t_philo *philo);
+void					init_process(t_data *data, t_philo *philo);
+void					print_states(t_data *data, t_philo *philo);
+void					start_routine(t_data *data, t_philo *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:51:57 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/26 09:03:58 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/27 09:30:22 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ static void	init_semaphore(t_data *data)
 	data->print = sem_open("/printf", O_CREAT, 0644, 1);
 	if (data->print == SEM_FAILED)
 		ft_error("sem_open() error\n");
+	sem_unlink("/waiter");
+	data->waiter = sem_open("/waiter", O_CREAT, 0644, data->nb_philo - 1);
+	if (data->waiter == SEM_FAILED)
+		ft_error("sem_open() error\n");
 }
 
 void	setup_philo(t_data *data, t_philo *philo)
@@ -65,17 +69,4 @@ void	setup_philo(t_data *data, t_philo *philo)
 	philo->data = data;
 	pthread_mutex_init(&philo->mutex_meal, NULL);
 	pthread_mutex_init(&philo->mutex_states, NULL);
-}
-
-size_t	get_time(void)
-{
-	struct timeval	time;
-	size_t			current_time;
-
-	memset(&time, 0, sizeof(struct timeval));
-	if (gettimeofday(&time, NULL) < 0)
-		ft_error("gettimeofday() error\n");
-	current_time = time.tv_sec * 1000;
-	current_time += time.tv_usec / 1000;
-	return (current_time);
 }
