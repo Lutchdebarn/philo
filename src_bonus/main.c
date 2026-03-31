@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:46:15 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/27 09:44:35 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/31 18:06:03 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	{
 		if (setup_data(&data, av, ac))
 		{
-			setup_philo(&data, &philo);
+			setup_mutex_and_philo(&data, &philo);
 			init_process(&data, &philo);
 			close_prog(&data, &philo);
 		}

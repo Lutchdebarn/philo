@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:48:42 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 20:48:49 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/27 15:04:33 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	error_args(void)
 
 void	ft_error(char *errorname)
 {
-	printf("%s\n", errorname);
+	printf("%s", errorname);
 	exit(EXIT_FAILURE);
 }
 

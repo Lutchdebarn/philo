@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:56:09 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/26 08:47:04 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/31 17:24:01 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,4 @@ static void	init_mutex(t_data *data)
 		else
 			ft_error("pthread_mutex_init() error\n");
 	}
-}
-
-size_t	get_time(void)
-{
-	struct timeval	time;
-	size_t			current_time;
-
-	memset(&time, 0, sizeof(struct timeval));
-	if (gettimeofday(&time, NULL) < 0)
-		ft_error("gettimeofday() error\n");
-	current_time = time.tv_sec * 1000;
-	current_time += time.tv_usec / 1000;
-	return (current_time);
 }

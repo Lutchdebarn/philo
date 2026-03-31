@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_data_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:51:57 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/27 10:19:47 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/31 18:05:26 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,28 @@ static void	init_semaphore(t_data *data)
 	if (data->print == SEM_FAILED)
 		ft_error("sem_open() error\n");
 	sem_unlink("/waiter");
-	data->waiter = sem_open("/waiter", O_CREAT, 0644, data->nb_philo - 1);
-	if (data->waiter == SEM_FAILED)
-		ft_error("sem_open() error\n");
+	if (data->nb_philo > 1)
+	{
+		data->waiter = sem_open("/waiter", O_CREAT, 0644, data->nb_philo - 1);
+		if (data->waiter == SEM_FAILED)
+			ft_error("sem_open() error\n");
+	}
+	else
+	{
+		data->waiter = sem_open("/waiter", O_CREAT, 0644, data->nb_philo);
+		if (data->waiter == SEM_FAILED)
+			ft_error("sem_open() error\n");
+	}
 }
 
-void	setup_philo(t_data *data, t_philo *philo)
+void	setup_mutex_and_philo(t_data *data, t_philo *philo)
 {
 	philo->last_meal = data->start_time;
 	philo->data = data;
-	pthread_mutex_init(&philo->mutex_meal, NULL);
-	pthread_mutex_init(&philo->mutex_states, NULL);
+	if (pthread_mutex_init(&philo->mutex_meal, NULL) != 0)
+		ft_error("pthread_mutex_init() error\n");
+	if (pthread_mutex_init(&philo->mutex_states, NULL) != 0)
+		ft_error("pthread_mutex_init() error\n");
+	if (pthread_mutex_init(&data->mutex_pid, NULL) != 0)
+		ft_error("pthread_mutex_init() error\n");
 }

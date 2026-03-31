@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 20:38:44 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/27 09:43:29 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/31 18:05:41 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define YELLOW "\e[1;33m"
 # define RED "\e[1;31m"
@@ -47,6 +48,7 @@ typedef struct s_data
 	long				max_eat;
 	pthread_t			thread_main;
 	pid_t				*p_id;
+	pthread_mutex_t		mutex_pid;
 	size_t				time_to_die;
 	size_t				time_to_eat;
 	size_t				time_to_sleep;
@@ -78,15 +80,18 @@ long					ft_atol(const char *str);
 size_t					get_time(void);
 bool					check_str(const char *str);
 void					*safe_calloc(size_t count, size_t size);
+void					precise_sleep(size_t ms);
 
 // Setup Cleanup
 bool					setup_data(t_data *data, char **av, int ac);
-void					setup_philo(t_data *data, t_philo *philo);
+void					setup_mutex_and_philo(t_data *data, t_philo *philo);
 void					close_prog(t_data *data, t_philo *philo);
+void					close_sem(t_data *data);
 
 // Routine
 void					init_process(t_data *data, t_philo *philo);
 void					print_states(t_data *data, t_philo *philo);
 void					start_routine(t_data *data, t_philo *philo);
+bool					check_eating(t_data *data, t_philo *philo);
 
 #endif

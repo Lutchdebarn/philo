@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:56:14 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 20:17:38 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/31 18:27:51 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	*monitor_routine(void *param);
 static void	*start_routine(void *data);
 static bool	check_death(t_data *data, int i, size_t actual_time);
+static void	possible_sleep(t_philo *philo);
 
 void	creat_thread(t_data *data)
 {
@@ -66,7 +67,6 @@ static void	*start_routine(void *data)
 	t_philo	*philo;
 
 	philo = data;
-	usleep(200);
 	while (1)
 	{
 		if (!check_is_running(philo))
@@ -75,16 +75,16 @@ static void	*start_routine(void *data)
 			break ;
 		pthread_mutex_lock(&philo->data->mutex_state);
 		philo->state = IS_SLEEPING;
-		pthread_mutex_unlock(&philo->data->mutex_state);
 		print_states(philo);
-		usleep(philo->data->time_to_sleep * 1000);
+		pthread_mutex_unlock(&philo->data->mutex_state);
+		precise_sleep(philo->data->time_to_sleep);
 		if (!check_is_running(philo))
 			break ;
+		pthread_mutex_lock(&philo->data->mutex_state);
 		philo->state = IS_THINKING;
-		if (philo->data->time_to_eat * 2 > philo->data->time_to_sleep)
-			usleep(((philo->data->time_to_eat * 2) - philo->data->time_to_sleep)
-				* 1000);
 		print_states(philo);
+		pthread_mutex_unlock(&philo->data->mutex_state);
+		possible_sleep(philo);
 	}
 	return (NULL);
 }
@@ -106,4 +106,13 @@ static bool	check_death(t_data *data, int i, size_t actual_time)
 	}
 	pthread_mutex_unlock(&data->philos[i].protect_meal);
 	return (true);
+}
+
+static void	possible_sleep(t_philo *philo)
+{
+	if ((philo->data->time_to_die - philo->data->time_to_eat
+			- philo->data->time_to_sleep) > ((philo->data->time_to_eat * 2)
+			- philo->data->time_to_sleep))
+		precise_sleep((philo->data->time_to_eat * 2)
+			- philo->data->time_to_sleep);
 }

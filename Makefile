@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+         #
+#    By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:56:18 by lucasdebarn       #+#    #+#              #
-#    Updated: 2026/03/27 09:49:21 by lucasdebarn      ###   ########.fr        #
+#    Updated: 2026/03/31 17:26:21 by ludebarn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC_FILES = $(SRC_DIR)/setup_data.c \
 			$(SRC_DIR)/parsing.c \
 			$(SRC_DIR)/routine.c \
 			$(SRC_DIR)/routine_utils.c \
-			$(SRC_DIR)/clean_up.c
+			$(SRC_DIR)/clean_up.c \
+			$(SRC_DIR)/utils.c
 
 SRC_FILE_BONUS = $(SRC_DIR_BONUS)/setup_data_bonus.c \
 			$(SRC_DIR_BONUS)/main.c \

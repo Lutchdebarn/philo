@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:56:23 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/25 20:15:30 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2026/03/31 18:31:03 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <signal.h>
 
-# define YELLOW "\e[1;33m"
 # define RED "\e[1;31m"
 # define NC "\e[0m"
 
@@ -84,6 +84,7 @@ long					ft_atol(const char *str);
 size_t					get_time(void);
 bool					check_str(const char *str);
 void					*safe_calloc(size_t count, size_t size);
+void					precise_sleep(size_t ms);
 
 // Setup Cleanup
 bool					setup_data(t_data *data, char **av, int ac);
