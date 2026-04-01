@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_bonus2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 09:21:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/31 18:40:43 by ludebarn         ###   ########.fr       */
+/*   Updated: 2026/04/01 09:07:37 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

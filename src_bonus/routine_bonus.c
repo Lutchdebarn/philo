@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 21:50:24 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2026/03/31 18:43:09 by ludebarn         ###   ########.fr       */
+/*   Updated: 2026/04/01 09:07:00 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_process(t_data *data, t_philo *philo)
 		data->p_id[i] = fork();
 		if (data->p_id[i] == -1)
 			ft_error("fork() error\n");
+		pthread_mutex_unlock(&data->mutex_pid);
 		if (data->p_id[i] == 0)
 		{
 			free(data->p_id);
@@ -36,7 +37,6 @@ void	init_process(t_data *data, t_philo *philo)
 			exit(0);
 		}
 		i++;
-		pthread_mutex_unlock(&data->mutex_pid);
 	}
 	wait_all(data);
 	pthread_join(data->thread_main, NULL);
